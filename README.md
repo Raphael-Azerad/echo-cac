@@ -111,6 +111,8 @@ Echo itself is not an AI chatbot. The current app includes a small writing-polis
 
 ## Running Locally
 
+Prerequisites: Node.js 22 is recommended, matching the GitHub Actions and Docker runtime. Python 3 is used for the static local web server.
+
 Install dependencies:
 
 ```sh

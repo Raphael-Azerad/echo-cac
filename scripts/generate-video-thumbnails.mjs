@@ -27,43 +27,43 @@ async function asset(file) {
 const thumbnails = [
   {
     file: "echo-thumbnail-01-preserve-time.jpg",
+    theme: "artifact",
     eyebrow: "ECHO",
     title: "Preserve who you were",
-    subtitle: "A private time capsule for a future self",
-    image: "docs/assets/submission/07-returned-echo-detail.jpg",
-    variant: "artifact",
+    subtitle: "Letters, voice, video, and context returned when they matter.",
+    primary: "docs/assets/submission/07-returned-echo-detail.jpg",
+    secondary: "docs/assets/submission/08-media-evidence-tray.jpg",
   },
   {
     file: "echo-thumbnail-02-human-place-time.jpg",
+    theme: "proof",
     eyebrow: "CONGRESSIONAL APP CHALLENGE",
     title: "A human. A place. A time.",
-    subtitle: "Letters, voice, video, and context sealed for later",
-    image: "docs/assets/submission/08-media-evidence-tray.jpg",
-    variant: "evidence",
+    subtitle: "A private archive artifact, not another notes app.",
+    primary: "docs/assets/submission/08-media-evidence-tray.jpg",
+    secondary: "docs/assets/submission/05-present-and-future-fields.jpg",
   },
   {
     file: "echo-thumbnail-03-notes-fail.jpg",
+    theme: "contrast",
     eyebrow: "WHY ECHO EXISTS",
     title: "Notes save words. Echo saves the moment.",
-    subtitle: "Local-first, private, and sealed until the future",
-    image: "docs/assets/submission/01-home-returned-and-sealed.jpg",
-    variant: "home",
+    subtitle: "Local-first, private, and sealed until the future.",
+    primary: "docs/assets/submission/02-write-room-media-first.jpg",
+    secondary: "docs/assets/submission/01-home-returned-and-sealed.jpg",
   },
 ];
 
 async function htmlFor(thumbnail) {
   const logo = await asset("outputs/echo/icon.svg");
-  const screen = await asset(thumbnail.image);
+  const primary = await asset(thumbnail.primary);
+  const secondary = await asset(thumbnail.secondary);
+
   return `<!doctype html>
     <html>
       <head>
         <meta charset="utf-8" />
         <style>
-          @font-face {
-            font-family: GeorgiaLocal;
-            src: local("Georgia");
-          }
-
           * {
             box-sizing: border-box;
           }
@@ -75,163 +75,252 @@ async function htmlFor(thumbnail) {
             overflow: hidden;
             background: #f4eadb;
             color: #2c251f;
-            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
           }
 
           .canvas {
             position: relative;
             width: 1280px;
             height: 720px;
-            display: grid;
-            grid-template-columns: 1.05fr 0.95fr;
-            padding: 58px 72px;
-            gap: 54px;
-            background:
-              linear-gradient(90deg, #f7efe3 0%, #f7efe3 46%, #eadcc9 100%);
+            overflow: hidden;
+            background: #f4eadb;
           }
 
-          .copy {
-            align-self: center;
-            display: grid;
-            gap: 24px;
-            z-index: 2;
+          .canvas::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+              linear-gradient(90deg, rgba(255, 250, 242, 0.96) 0%, rgba(255, 250, 242, 0.88) 48%, rgba(234, 220, 201, 0.92) 100%);
+            z-index: 0;
+          }
+
+          .canvas::after {
+            content: "";
+            position: absolute;
+            inset: 32px;
+            border: 1px solid rgba(108, 82, 58, 0.18);
+            border-radius: 28px;
+            pointer-events: none;
+            z-index: 4;
           }
 
           .brand {
-            display: inline-flex;
+            position: absolute;
+            top: 58px;
+            left: 70px;
+            display: flex;
             align-items: center;
             gap: 14px;
-            font-weight: 800;
-            letter-spacing: 0.14em;
-            font-size: 19px;
-            color: #6a4a32;
+            z-index: 5;
+            color: #5d432f;
+            font-size: 20px;
+            font-weight: 850;
+            letter-spacing: 0.11em;
           }
 
           .brand img {
-            width: 58px;
-            height: 58px;
-            border-radius: 16px;
+            width: 54px;
+            height: 54px;
+            border-radius: 15px;
+          }
+
+          .copy {
+            position: absolute;
+            left: 70px;
+            top: 158px;
+            width: 570px;
+            z-index: 5;
           }
 
           .eyebrow {
-            margin: 0;
-            color: #6d5e50;
-            font-size: 19px;
-            font-weight: 850;
-            letter-spacing: 0.13em;
+            margin: 0 0 20px;
+            color: #765c45;
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: 0.16em;
           }
 
           h1 {
             margin: 0;
-            max-width: 690px;
-            font-family: GeorgiaLocal, Georgia, serif;
-            font-size: 74px;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 70px;
             line-height: 0.96;
             font-weight: 500;
             letter-spacing: 0;
           }
 
           .subtitle {
-            max-width: 560px;
-            margin: 0;
-            color: #67594c;
-            font-size: 28px;
-            line-height: 1.25;
-            font-weight: 650;
+            max-width: 520px;
+            margin: 24px 0 0;
+            color: #5e5145;
+            font-size: 27px;
+            line-height: 1.22;
+            font-weight: 700;
           }
 
           .proof {
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
-            margin-top: 8px;
+            margin-top: 28px;
           }
 
           .proof span {
-            border: 1px solid #cbb99e;
+            border: 1px solid #c7b493;
             border-radius: 999px;
-            padding: 9px 14px;
-            background: rgba(255, 250, 242, 0.72);
+            padding: 10px 15px;
+            background: rgba(255, 250, 242, 0.82);
             color: #4b3829;
             font-size: 17px;
-            font-weight: 750;
+            font-weight: 800;
           }
 
-          .phone-wrap {
-            position: relative;
-            align-self: center;
-            justify-self: center;
-            width: 336px;
-            height: 616px;
-            border-radius: 48px;
-            padding: 16px;
-            background: #2c251f;
-            box-shadow: 0 38px 80px rgba(55, 39, 24, 0.26);
-            transform: rotate(2deg);
-          }
-
-          .phone-wrap::before {
-            content: "";
+          .panel {
             position: absolute;
-            top: 9px;
-            left: 50%;
-            width: 96px;
-            height: 24px;
-            border-radius: 999px;
-            background: #2c251f;
-            transform: translateX(-50%);
             z-index: 2;
-          }
-
-          .phone {
-            width: 100%;
-            height: 100%;
-            border-radius: 34px;
             overflow: hidden;
             background: #fff8ee;
+            border: 1px solid rgba(93, 67, 47, 0.24);
+            box-shadow: 0 28px 70px rgba(62, 43, 25, 0.20);
           }
 
-          .phone img {
+          .panel img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
             display: block;
+            object-fit: cover;
           }
 
           .seal {
             position: absolute;
-            right: 34px;
-            bottom: 30px;
-            width: 142px;
-            height: 142px;
+            right: 58px;
+            bottom: 48px;
+            width: 132px;
+            height: 132px;
+            z-index: 5;
             border-radius: 999px;
             display: grid;
             place-items: center;
-            border: 1px solid #cab79a;
-            background: rgba(255, 248, 238, 0.76);
+            border: 1px solid rgba(166, 134, 93, 0.42);
+            background: rgba(255, 250, 242, 0.82);
+            box-shadow: 0 20px 48px rgba(62, 43, 25, 0.14);
           }
 
           .seal img {
-            width: 82px;
-            height: 82px;
+            width: 78px;
+            height: 78px;
           }
 
-          .variant-evidence .phone-wrap {
-            transform: rotate(-2deg);
+          .artifact .main-panel {
+            right: 76px;
+            top: 76px;
+            width: 420px;
+            height: 560px;
+            border-radius: 28px;
           }
 
-          .variant-home h1 {
-            font-size: 68px;
+          .artifact .side-panel {
+            right: 410px;
+            bottom: 58px;
+            width: 248px;
+            height: 330px;
+            border-radius: 22px;
+            opacity: 0.96;
+          }
+
+          .proof-theme .copy {
+            width: 570px;
+          }
+
+          .proof-theme .main-panel {
+            right: 70px;
+            top: 78px;
+            width: 484px;
+            height: 360px;
+            border-radius: 26px;
+          }
+
+          .proof-theme .main-panel img {
+            object-position: top center;
+          }
+
+          .proof-theme .side-panel {
+            right: 166px;
+            bottom: 56px;
+            width: 330px;
+            height: 228px;
+            border-radius: 22px;
+          }
+
+          .proof-theme h1 {
+            font-size: 74px;
+          }
+
+          .contrast {
+            background: #2c251f;
+            color: #fff8ee;
+          }
+
+          .contrast::before {
+            background:
+              linear-gradient(90deg, rgba(44, 37, 31, 0.96) 0%, rgba(70, 53, 39, 0.92) 48%, rgba(244, 234, 219, 0.96) 100%);
+          }
+
+          .contrast::after {
+            border-color: rgba(255, 248, 238, 0.16);
+          }
+
+          .contrast .brand,
+          .contrast .eyebrow {
+            color: #e7d5bc;
+          }
+
+          .contrast .subtitle {
+            color: #ddccb7;
+          }
+
+          .contrast .proof span {
+            background: rgba(255, 248, 238, 0.10);
+            border-color: rgba(255, 248, 238, 0.24);
+            color: #fff8ee;
+          }
+
+          .contrast .main-panel {
+            right: 68px;
+            top: 78px;
+            width: 390px;
+            height: 520px;
+            border-radius: 30px;
+            transform: rotate(1deg);
+          }
+
+          .contrast .side-panel {
+            right: 388px;
+            bottom: 62px;
+            width: 250px;
+            height: 332px;
+            border-radius: 24px;
+            transform: rotate(-3deg);
+          }
+
+          .contrast .seal {
+            background: rgba(255, 248, 238, 0.94);
+          }
+
+          .contrast h1 {
+            max-width: 610px;
+            font-size: 64px;
           }
         </style>
       </head>
       <body>
-        <main class="canvas variant-${thumbnail.variant}">
+        <main class="canvas ${thumbnail.theme === "proof" ? "proof-theme" : thumbnail.theme}">
+          <div class="brand">
+            <img src="${logo}" alt="" />
+            <span>Echo</span>
+          </div>
           <section class="copy">
-            <div class="brand">
-              <img src="${logo}" alt="" />
-              <span>Echo</span>
-            </div>
             <p class="eyebrow">${thumbnail.eyebrow}</p>
             <h1>${thumbnail.title}</h1>
             <p class="subtitle">${thumbnail.subtitle}</p>
@@ -241,11 +330,12 @@ async function htmlFor(thumbnail) {
               <span>Sealed privacy</span>
             </div>
           </section>
-          <section class="phone-wrap" aria-hidden="true">
-            <div class="phone">
-              <img src="${screen}" alt="" />
-            </div>
-          </section>
+          <figure class="panel main-panel" aria-hidden="true">
+            <img src="${primary}" alt="" />
+          </figure>
+          <figure class="panel side-panel" aria-hidden="true">
+            <img src="${secondary}" alt="" />
+          </figure>
           <div class="seal" aria-hidden="true">
             <img src="${logo}" alt="" />
           </div>
@@ -264,7 +354,7 @@ async function main() {
     await page.screenshot({
       path: path.join(outputDir, thumbnail.file),
       type: "jpeg",
-      quality: 92,
+      quality: 94,
       fullPage: false,
     });
   }

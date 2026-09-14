@@ -19,11 +19,11 @@ reviews:
     - "outputs/echo/**"
     - "docs/**"
     - "tests/**"
-    - "AGENTS.md"
+    - "CONTEXT.md"
   path_instructions:
     - path: "outputs/echo/**"
       instructions: |
-        Review against AGENTS.md and docs/design-quality-bar.md.
+        Review against CONTEXT.md and docs/design-quality-bar.md.
         Focus on:
         - Locked Echo privacy: future Echo titles/content/media must not be casually visible.
         - iPhone-first UX: no desktop dashboard drift, cramped touch targets, or text overflow.

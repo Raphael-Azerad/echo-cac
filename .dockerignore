@@ -1,0 +1,13 @@
+.git
+.github/security
+.claude
+node_modules
+test-results
+playwright-report
+coverage
+.promptfoo
+.DS_Store
+AGENTS.md
+docs/agents
+docs/research-notes.md
+npm-debug.log*

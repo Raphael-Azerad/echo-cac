@@ -40,8 +40,9 @@ Letters, voice, video, and context sealed for later.
 Visual basis:
 
 - Primary app frame: `docs/assets/submission/08-media-evidence-tray.jpg`
-- Supporting frame if revised: `docs/assets/submission/07-returned-echo-detail.jpg`
-- Keep the warm ivory background, large serif type, bronze seal mark, and tilted iPhone frame.
+- Supporting frame: `docs/assets/submission/05-present-and-future-fields.jpg`
+- Keep the warm ivory background, large serif type, bronze seal mark, and full product panels.
+- Do not use the old fake phone crop. It made the app look cramped and lower quality.
 - Keep the text sparse enough to read at small size. The three-part line is the hook; the subtitle is optional if the thumbnail feels crowded.
 
 Why this pair works: the title names Echo's thesis, and the thumbnail proves it visually with media, place, and returned archive context. It says "this captures a whole moment," not "this stores notes."
@@ -104,9 +105,9 @@ Optional small line:
 Sealed for later
 ```
 
-Image: tilted iPhone showing `08-media-evidence-tray.jpg`, because the captured media tray makes Echo look unlike a journal clone.
+Image: full product panels showing `08-media-evidence-tray.jpg` and `05-present-and-future-fields.jpg`, because the captured media tray makes Echo look unlike a journal clone.
 
-Notes: Use the existing generated thumbnail `docs/assets/video/echo-thumbnail-02-human-place-time.jpg` as the base. If refining, crop the phone so the media tiles are larger and keep only one small CAC label.
+Notes: Use the generated thumbnail `docs/assets/video/echo-thumbnail-02-human-place-time.jpg` as the base. If refining, make the evidence tray even larger, but keep the full panel style.
 
 ### 2. Notes Save Words. Echo Saves The Moment.
 
@@ -117,7 +118,7 @@ Notes save words.
 Echo saves the moment.
 ```
 
-Image: iPhone showing `01-home-returned-and-sealed.jpg` or `02-write-room-media-first.jpg`.
+Image: product panels showing `02-write-room-media-first.jpg` and `01-home-returned-and-sealed.jpg`.
 
 Notes: This is the sharpest "why it exists" thumbnail. It is especially strong if the video begins with the line "Most apps save files..."
 
@@ -143,7 +144,7 @@ A letter
 to later.
 ```
 
-Image: iPhone showing `02-write-room-media-first.jpg` or `04-active-writing-cue.jpg`.
+Image: product panels showing `02-write-room-media-first.jpg` or `04-active-writing-cue.jpg`.
 
 Notes: This is the warmest and most literary option. It works if the final video starts in the Write room and slowly expands into media/context/privacy.
 
