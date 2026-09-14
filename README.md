@@ -10,6 +10,8 @@ Echo is built for the Congressional App Challenge as a local-first prototype. It
 
 The CAC cover image is available at `docs/assets/echo-cover-600x800.jpg`. It is a `600x800` JPEG, matching the portal's preferred 3:4 cover-photo size.
 
+The upload-ready submission set is in `docs/assets/submission/`. It includes ten `600x800` JPEGs covering the home screen, writing room, prompt flow, present/future fields, archive privacy, returned Echo detail, media evidence tray, trust layer, and technical proof. A short silent product walkthrough is also available at `docs/assets/submission/echo-demo-walkthrough.webm`.
+
 <p>
   <img src="docs/assets/echo-cover-600x800.jpg" alt="Echo home screen cover image" width="220">
   <img src="docs/assets/echo-write.jpg" alt="Echo writing room with voice, video, dictation, media, and moment controls" width="220">

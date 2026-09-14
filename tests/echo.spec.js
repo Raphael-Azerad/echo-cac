@@ -267,13 +267,15 @@ test("returned Echoes stage the archive reveal before showing the letter", async
   await expect(page.getByLabel("Time capsule bridge")).toContainText("Now");
   await expect(page.getByLabel("Returned Echo exhibit")).toBeVisible();
   await expect(page.locator(".evidence-grid .media-tile")).toHaveCount(3);
-  await expect(page.locator(".evidence-grid video")).toHaveCount(1);
-  await expect(page.locator(".evidence-grid audio")).toHaveCount(1);
+  await expect(page.locator(".evidence-grid .compact-video-tile")).toHaveCount(1);
+  await expect(page.locator(".evidence-grid .compact-audio-tile")).toHaveCount(1);
+  await expect(page.locator(".evidence-grid video")).toHaveCount(0);
+  await expect(page.locator(".evidence-grid audio")).toHaveCount(0);
   await expect(page.getByText("Captured media")).toBeVisible();
   await expect(page.getByText("1 voice note, 1 video, 1 photo")).toBeVisible();
-  await expect(page.getByText("Voice note from the build room.webm")).toBeVisible();
-  await expect(page.getByText("Desk before launch.mp4")).toBeVisible();
-  await expect(page.getByText("Room light.png")).toBeVisible();
+  await expect(page.getByText("Voice note from the build room")).toBeVisible();
+  await expect(page.getByText("Desk before launch")).toBeVisible();
+  await expect(page.getByText("Room light")).toBeVisible();
   await expect(page.getByText("The work felt alive")).toBeVisible();
   await expect(page.getByLabel("Returned Echo exhibit")).toContainText("Cupertino, California, United States");
 
@@ -927,12 +929,13 @@ test("live walkthrough seeds rich media and opens the returned artifact preview"
   await expect(page.getByLabel("Returned Echo exhibit")).toContainText("1 voice note, 1 video, 1 photo");
   await expect(page.locator(".evidence-grid .media-tile")).toHaveCount(3);
   await expect(page.locator(".evidence-grid .static-video-tile")).toHaveCount(1);
-  await expect(page.locator(".evidence-grid audio")).toHaveCount(1);
+  await expect(page.locator(".evidence-grid .compact-audio-tile")).toHaveCount(1);
+  await expect(page.locator(".evidence-grid audio")).toHaveCount(0);
   await expect(page.locator(".evidence-grid video")).toHaveCount(0);
   await expect(page.getByLabel("Returned Echo exhibit")).toContainText("I hope the future version can tell whether the work still feels honest.");
-  await expect(page.getByText("Voice note from the build room.wav")).toBeVisible();
-  await expect(page.getByText("Thirty seconds before the demo.mp4")).toBeVisible();
-  await expect(page.getByText("Desk light before launch.svg")).toBeVisible();
+  await expect(page.getByText("Voice note from the build room")).toBeVisible();
+  await expect(page.getByText("Thirty seconds before the demo")).toBeVisible();
+  await expect(page.getByText("Desk light before launch")).toBeVisible();
   await expect(page.getByLabel("Returned Echo exhibit")).toContainText("A small build room near Cupertino");
   await expect(page.getByText("I am building this because")).toBeVisible();
 });

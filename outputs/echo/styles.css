@@ -2586,7 +2586,7 @@ textarea::placeholder {
 
 .evidence-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 9px;
 }
 
@@ -2635,6 +2635,7 @@ textarea::placeholder {
 
 .media-tile {
   position: relative;
+  margin: 0;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   overflow: hidden;
@@ -2688,10 +2689,50 @@ textarea::placeholder {
   aspect-ratio: 1 / 1;
 }
 
+.evidence-media {
+  min-width: 0;
+}
+
+.evidence-media figcaption {
+  min-width: 0;
+  overflow: hidden;
+  overflow-wrap: normal;
+  text-overflow: ellipsis;
+  word-break: normal;
+}
+
 .evidence-media.audio-tile,
 .evidence-media.file-tile {
   min-height: 116px;
   padding: 12px;
+}
+
+.compact-artifact-tile {
+  min-height: 150px;
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 10px;
+  padding: 16px;
+}
+
+.compact-artifact-tile .icon {
+  width: 24px;
+  height: 24px;
+  color: var(--bronze-strong);
+}
+
+.compact-artifact-tile figcaption {
+  display: grid;
+  gap: 4px;
+  padding: 0;
+}
+
+.compact-artifact-tile figcaption span {
+  color: var(--bronze-strong);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
 }
 
 .static-video-tile figcaption {

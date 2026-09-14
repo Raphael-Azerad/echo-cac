@@ -6,6 +6,7 @@
   "scripts": {
     "serve": "python3 -m http.server 4174 --directory outputs/echo",
     "serve:api": "node api/server.js",
+    "media:submission": "node scripts/generate-submission-media.mjs",
     "check:js": "node --check outputs/echo/app.js && node --check api/server.js",
     "test": "playwright test && node --test tests/api-context.test.js",
     "eval:ai": "npx --yes promptfoo@0.122.0 eval -c promptfooconfig.yaml",
