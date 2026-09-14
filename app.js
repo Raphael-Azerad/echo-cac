@@ -3424,6 +3424,40 @@ function cleanString(value) {
   return typeof value === "string" ? value.trim() : "";
 }
 
+function parseDataUrl(dataUrl) {
+  if (typeof dataUrl !== "string") return null;
+  const match = dataUrl.match(/^data:([^;,]+)(;base64)?,(.*)$/is);
+  if (!match) return null;
+  const type = match[1].toLowerCase();
+  const isBase64 = Boolean(match[2]);
+  const body = match[3] || "";
+  let bytes = 0;
+  if (isBase64) {
+    const compact = body.replace(/\s/g, "");
+    const padding = compact.endsWith("==") ? 2 : compact.endsWith("=") ? 1 : 0;
+    bytes = Math.max(0, Math.floor((compact.length * 3) / 4) - padding);
+  } else {
+    try {
+      bytes = new TextEncoder().encode(decodeURIComponent(body)).length;
+    } catch {
+      bytes = new TextEncoder().encode(body).length;
+    }
+  }
+  return { type, bytes };
+}
+
+function isSafeImportedAttachmentType(type) {
+  return (
+    /^image\/(png|jpeg|jpg|gif|webp)$/i.test(type) ||
+    /^audio\/(webm|wav|mpeg|mp4|ogg)$/i.test(type) ||
+    /^video\/(webm|mp4|quicktime)$/i.test(type) ||
+    /^text\/plain$/i.test(type) ||
+    /^application\/pdf$/i.test(type) ||
+    /^application\/json$/i.test(type) ||
+    /^application\/octet-stream$/i.test(type)
+  );
+}
+
 function normalizeDate(value) {
   const date = new Date(value);
   return Number.isFinite(date.getTime()) ? date.toISOString() : "";
@@ -3436,19 +3470,24 @@ function normalizeImportedAttachments(attachments) {
   for (const attachment of attachments) {
     if (!attachment || typeof attachment !== "object") continue;
     const dataUrl = typeof attachment.dataUrl === "string" ? attachment.dataUrl : "";
-    const type = cleanString(attachment.type) || "application/octet-stream";
-    const size = Number.isFinite(attachment.size) ? attachment.size : 0;
-    if (!dataUrl.startsWith("data:") || size > maxAttachmentBytes || totalBytes + size > maxAttachmentTotalBytes) continue;
+    const parsed = parseDataUrl(dataUrl);
+    if (!parsed || !isSafeImportedAttachmentType(parsed.type)) continue;
+    const claimedSize = Number.isFinite(attachment.size) ? attachment.size : 0;
+    const size = Math.max(claimedSize, parsed.bytes);
+    if (size > maxAttachmentBytes || totalBytes + size > maxAttachmentTotalBytes) continue;
     totalBytes += size;
+    const type = parsed.type;
     safeAttachments.push({
       id: cleanId(attachment.id) || crypto.randomUUID(),
       name: cleanString(attachment.name) || "Imported attachment",
       type,
-      kind: cleanString(attachment.kind) || type.split("/")[0] || "file",
+      kind: type.split("/")[0] || cleanString(attachment.kind) || "file",
       size,
       dataUrl,
       posterDataUrl:
-        typeof attachment.posterDataUrl === "string" && attachment.posterDataUrl.startsWith("data:image/")
+        typeof attachment.posterDataUrl === "string" &&
+        isSafeImportedAttachmentType(parseDataUrl(attachment.posterDataUrl)?.type || "") &&
+        parseDataUrl(attachment.posterDataUrl)?.type.startsWith("image/")
           ? attachment.posterDataUrl
           : "",
       demoStatic: attachment.demoStatic === true,
@@ -3585,10 +3624,17 @@ async function attachStudioRecording(mode) {
   const type = mode === "video" ? "video/webm" : "audio/webm";
   const label = mode === "video" ? "Video note" : "Voice note";
   const blob = new Blob(recordedChunks, { type });
-  const attachment = await fileToAttachment(new File([blob], `${label} ${new Date().toLocaleTimeString()}.webm`, { type }));
   const list = document.querySelector("#attachmentList");
   if (!list) return;
   const attachments = JSON.parse(list.dataset.attachments || "[]");
+  const currentBytes = attachments.reduce((sum, file) => sum + (file.size || 0), 0);
+  if (blob.size > maxAttachmentBytes || currentBytes + blob.size > maxAttachmentTotalBytes) {
+    toast(`${label} skipped. Keep attachments under ${formatBytes(maxAttachmentBytes)} each.`);
+    const state = document.querySelector("#recordingState");
+    if (state) state.textContent = `${label} skipped`;
+    return;
+  }
+  const attachment = await fileToAttachment(new File([blob], `${label} ${new Date().toLocaleTimeString()}.webm`, { type }));
   attachments.push(attachment);
   list.dataset.attachments = JSON.stringify(attachments);
   renderAttachmentList(list, attachments);
