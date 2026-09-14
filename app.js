@@ -2573,20 +2573,33 @@ function renderExhibitMedia(files) {
 
 function mediaTile(file, className = "") {
   const name = escapeHtml(file.name);
+  const compactEvidence = className.split(/\s+/).includes("evidence-media");
+  const mediaName = escapeHtml(readableMediaName(file.name));
+  if (compactEvidence && file.type.startsWith("audio/")) {
+    return `<figure class="media-tile compact-artifact-tile compact-audio-tile ${className}">${icon("mic")}<figcaption><span>Voice note</span>${mediaName}</figcaption></figure>`;
+  }
+  if (compactEvidence && file.type.startsWith("video/") && !file.posterDataUrl) {
+    return `<figure class="media-tile compact-artifact-tile compact-video-tile ${className}">${icon("video")}<figcaption><span>Video note</span>${mediaName}</figcaption></figure>`;
+  }
   if (file.demoStatic && file.posterDataUrl) {
-    return `<figure class="media-tile static-video-tile ${className}"><img src="${file.posterDataUrl}" alt="${name}" /><figcaption><span>${icon("video")}Video artifact</span>${name}</figcaption></figure>`;
+    return `<figure class="media-tile static-video-tile ${className}"><img src="${file.posterDataUrl}" alt="${name}" /><figcaption><span>${icon("video")}Video artifact</span>${mediaName}</figcaption></figure>`;
   }
   if (file.type.startsWith("image/")) {
-    return `<figure class="media-tile ${className}"><img src="${file.dataUrl}" alt="${name}" /><figcaption>${name}</figcaption></figure>`;
+    return `<figure class="media-tile ${className}"><img src="${file.dataUrl}" alt="${name}" /><figcaption>${mediaName}</figcaption></figure>`;
   }
   if (file.type.startsWith("video/")) {
     const poster = file.posterDataUrl ? ` poster="${escapeHtml(file.posterDataUrl)}"` : "";
-    return `<figure class="media-tile ${className}"><video src="${file.dataUrl}" controls playsinline${poster}></video><figcaption>${name}</figcaption></figure>`;
+    return `<figure class="media-tile ${className}"><video src="${file.dataUrl}" controls playsinline${poster}></video><figcaption>${mediaName}</figcaption></figure>`;
   }
   if (file.type.startsWith("audio/")) {
-    return `<figure class="media-tile audio-tile ${className}">${icon("mic")}<figcaption>${name}</figcaption><audio src="${file.dataUrl}" controls></audio></figure>`;
+    return `<figure class="media-tile audio-tile ${className}">${icon("mic")}<figcaption>${mediaName}</figcaption><audio src="${file.dataUrl}" controls></audio></figure>`;
   }
-  return `<figure class="media-tile file-tile ${className}">${icon("paperclip")}<figcaption>${name}</figcaption></figure>`;
+  return `<figure class="media-tile file-tile ${className}">${icon("paperclip")}<figcaption>${mediaName}</figcaption></figure>`;
+}
+
+function readableMediaName(name = "") {
+  const withoutExtension = name.replace(/\.[a-z0-9]{2,5}$/i, "");
+  return withoutExtension.replace(/[-_]+/g, " ").trim() || "Captured artifact";
 }
 
 function renderMedia(files) {
