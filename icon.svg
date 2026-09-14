@@ -2,7 +2,7 @@
   <title id="title">Echo</title>
   <rect width="512" height="512" rx="112" fill="#fff8ee"/>
   <rect x="48" y="48" width="416" height="416" rx="88" fill="none" stroke="#d8c5a7" stroke-width="10"/>
-  <circle cx="256" cy="256" r="126" fill="none" stroke="#93673f" stroke-width="24"/>
-  <circle cx="256" cy="256" r="44" fill="#93673f"/>
-  <path d="M256 108c82 0 148 66 148 148S338 404 256 404" fill="none" stroke="#2c251f" stroke-width="14" stroke-linecap="round" opacity=".34"/>
+  <circle cx="256" cy="256" r="128" fill="#fffaf2" stroke="#93673f" stroke-width="22"/>
+  <circle cx="256" cy="256" r="82" fill="none" stroke="#d8c5a7" stroke-width="12"/>
+  <circle cx="256" cy="256" r="38" fill="#93673f"/>
 </svg>
