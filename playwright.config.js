@@ -1,5 +1,8 @@
 import { defineConfig } from "@playwright/test";
 
+const previewPort = process.env.ECHO_TEST_PORT || "4175";
+const previewUrl = `http://127.0.0.1:${previewPort}`;
+
 export default defineConfig({
   testDir: "./tests",
   timeout: 30_000,
@@ -9,14 +12,14 @@ export default defineConfig({
   fullyParallel: true,
   reporter: [["list"], ["html", { open: "never" }]],
   use: {
-    baseURL: "http://127.0.0.1:4174",
+    baseURL: previewUrl,
     reducedMotion: "reduce",
     trace: "retain-on-failure",
   },
   webServer: {
-    command: "python3 -m http.server 4174 --directory outputs/echo",
-    url: "http://127.0.0.1:4174",
-    reuseExistingServer: true,
+    command: `python3 -m http.server ${previewPort} --directory outputs/echo`,
+    url: previewUrl,
+    reuseExistingServer: false,
   },
   projects: [
     {

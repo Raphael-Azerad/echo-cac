@@ -7,20 +7,32 @@ const root = process.cwd();
 const appDir = path.join(root, "outputs", "echo");
 const mediaDir = path.join(root, "docs", "assets", "submission");
 const tempVideoDir = path.join(root, ".tmp-submission-video");
-const baseUrl = "http://127.0.0.1:4174";
+const previewPort = process.env.ECHO_MEDIA_PORT || "4176";
+const baseUrl = `http://127.0.0.1:${previewPort}`;
 const viewport = { width: 600, height: 800 };
 let navigationCounter = 0;
+let previewServer;
 
 function wait(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 function startServer() {
-  const server = spawn("python3", ["-m", "http.server", "4174", "--directory", appDir], {
+  const server = spawn("python3", ["-m", "http.server", previewPort, "--directory", appDir], {
     stdio: "ignore",
+  });
+  let exitCode = null;
+
+  server.once("exit", (code) => {
+    exitCode = code;
   });
 
   return {
+    assertRunning() {
+      if (exitCode !== null) {
+        throw new Error(`Echo preview server exited early. Stop any existing app on port ${previewPort} and rerun media generation.`);
+      }
+    },
     async stop() {
       if (server.killed) return;
       server.kill();
@@ -31,6 +43,7 @@ function startServer() {
 
 async function waitForServer() {
   for (let attempt = 0; attempt < 40; attempt += 1) {
+    previewServer?.assertRunning();
     try {
       const response = await fetch(baseUrl);
       if (response.ok) return;
@@ -319,7 +332,7 @@ async function makeVideo() {
 
 async function main() {
   await mkdir(mediaDir, { recursive: true });
-  const server = startServer();
+  previewServer = startServer();
   try {
     await waitForServer();
     const browser = await chromium.launch();
@@ -330,7 +343,7 @@ async function main() {
     await browser.close();
     await makeVideo();
   } finally {
-    await server.stop();
+    await previewServer.stop();
   }
 }
 

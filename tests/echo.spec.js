@@ -636,6 +636,42 @@ test("capture studio attaches recorded video locally", async ({ page }) => {
   expect(await page.evaluate(() => window.__stoppedTracks)).toBe(1);
 });
 
+test("capture studio rejects oversized recordings before attaching", async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, "mediaDevices", {
+      configurable: true,
+      value: {
+        getUserMedia: () =>
+          Promise.resolve({
+            getTracks: () => [{ stop: () => {} }],
+          }),
+      },
+    });
+    class FakeMediaRecorder {
+      constructor() {
+        this.ondataavailable = null;
+        this.onstop = null;
+      }
+      start() {}
+      stop() {
+        this.ondataavailable?.({ data: new Blob([new Uint8Array(9 * 1024 * 1024)], { type: "video/webm" }) });
+        this.onstop?.();
+      }
+    }
+    Object.defineProperty(window, "MediaRecorder", { configurable: true, value: FakeMediaRecorder });
+  });
+  await resetEcho(page);
+  await page.goto("/#create");
+
+  await page.getByRole("button", { name: /Video note/ }).click();
+  await page.getByRole("button", { name: "Start video" }).click();
+  await page.getByRole("button", { name: "Stop and attach" }).click();
+
+  await expect(page.getByText("Video note skipped. Keep attachments under 8 MB each.")).toBeVisible();
+  await expect(page.locator(".attachment-preview")).toHaveCount(0);
+  await expect(page.locator("#artifactSummary")).toContainText("No media yet");
+});
+
 test("moment context capture never sends letter text to the API", async ({ page }) => {
   await page.addInitScript(() => {
     window.__contextRequests = [];
@@ -1082,6 +1118,70 @@ test("Settings rejects malformed backup imports", async ({ page }, testInfo) => 
   await page.locator("#backupInput").setInputFiles(backupPath);
   await expect(page.getByText("That backup does not look like an Echo export.")).toBeVisible();
   await expect(page.getByText("0 saved")).toBeVisible();
+});
+
+test("Settings imports only safe attachment data URLs from backups", async ({ page }, testInfo) => {
+  await resetEcho(page);
+  const backupPath = testInfo.outputPath("echo-import-unsafe-media.json");
+  const importedEchoId = `imported-media-echo-${testInfo.project.name.toLowerCase()}`;
+  await writeFile(
+    backupPath,
+    JSON.stringify({
+      product: "Echo",
+      schemaVersion: 1,
+      exportedAt: "2026-09-14T17:00:00.000Z",
+      echoes: [
+        {
+          id: importedEchoId,
+          title: "Imported media proof",
+          letter: "Only the safe attachment should survive import.",
+          futureSelf: "Me after the audit",
+          mood: "Hopeful",
+          goals: "Keep the archive clean.",
+          createdAt: "2026-09-12T17:00:00.000Z",
+          unlockAt: "2026-09-13T17:00:00.000Z",
+          attachments: [
+            {
+              id: "safe-audio",
+              name: "Safe voice note.webm",
+              type: "audio/webm",
+              kind: "audio",
+              size: 4,
+              dataUrl: "data:audio/webm;base64,AAAA",
+            },
+            {
+              id: "html-disguised-as-image",
+              name: "Disguised HTML.png",
+              type: "image/png",
+              kind: "image",
+              size: 10,
+              dataUrl: "data:text/html,%3Cscript%3Ealert(1)%3C/script%3E",
+            },
+            {
+              id: "svg-image",
+              name: "Scriptable vector.svg",
+              type: "image/svg+xml",
+              kind: "image",
+              size: 10,
+              dataUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3C/svg%3E",
+            },
+          ],
+        },
+      ],
+    }),
+    "utf8",
+  );
+
+  await page.goto("/#settings");
+  await page.locator("#backupInput").setInputFiles(backupPath);
+  await expect(page.getByRole("status")).toHaveText("Imported 1 Echo.");
+  await page.evaluate((id) => localStorage.setItem("echo:opened-returned", JSON.stringify([id])), importedEchoId);
+  await page.goto(`/#echo/${importedEchoId}`);
+
+  await expect(page.locator(".evidence-grid .media-tile")).toHaveCount(1);
+  await expect(page.getByText("Safe voice note")).toBeVisible();
+  await expect(page.getByText("Disguised HTML")).toHaveCount(0);
+  await expect(page.getByText("Scriptable vector")).toHaveCount(0);
 });
 
 test("oversized media attachments are skipped before saving", async ({ page }) => {

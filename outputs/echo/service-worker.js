@@ -1,10 +1,10 @@
-const CACHE_NAME = "echo-shell-v2-closing-polish";
+const CACHE_NAME = "echo-shell-v3-audit-polish";
 const CACHE_ASSETS = [
   "./",
   "./index.html",
   "./privacy.html",
-  "./styles.css?v=20260913-closing-polish",
-  "./app.js?v=20260913-closing-polish",
+  "./styles.css?v=20260914-audit-polish",
+  "./app.js?v=20260914-audit-polish",
   "./manifest.webmanifest",
   "./icon.svg",
   "./icon-maskable.svg",
