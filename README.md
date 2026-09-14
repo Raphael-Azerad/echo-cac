@@ -1,22 +1,56 @@
-# Echo
+<div align="center">
+  <img src="outputs/echo/icon.svg" alt="Echo seal mark" width="92">
 
-Echo is a private time-capsule app for preserving a person, a place, and a moment in time.
+  <h1>Echo</h1>
 
-The app lets someone write a letter to a future version of themselves, add voice or video, capture the context around the moment, and seal the Echo until a future date. Until that date arrives, Echo hides the title, letter, media, mood, place, weather, and other emotional details from the everyday interface.
+  <p><strong>A private time capsule for preserving a human, a place, and a moment in time.</strong></p>
 
-Echo is built for the Congressional App Challenge as a local-first prototype. It is not a journal clone, a notes app, or an AI chatbot. The product goal is simple: make it possible to return to a real moment from your life with enough context that it still feels human.
+  <p>
+    <a href="#walkthrough">Walkthrough</a> ·
+    <a href="#screenshots">Screenshots</a> ·
+    <a href="#why-this-exists">Why it exists</a> ·
+    <a href="#technical-architecture">Architecture</a> ·
+    <a href="#running-locally">Run locally</a>
+  </p>
+
+  <p>
+    <strong>Local-first</strong> ·
+    <strong>Sealed-content privacy</strong> ·
+    <strong>Voice and video capture</strong> ·
+    <strong>Docker-ready API</strong> ·
+    <strong>Playwright tested</strong>
+  </p>
+</div>
+
+## Walkthrough
+
+<p align="center">
+  <a href="docs/assets/submission/echo-demo-walkthrough.webm">
+    <img src="docs/assets/submission/07-returned-echo-detail.jpg" alt="Echo returned artifact screen. Click to open the silent walkthrough video." width="360">
+  </a>
+</p>
+
+<p align="center">
+  <a href="docs/assets/submission/echo-demo-walkthrough.webm"><strong>Watch the silent product walkthrough</strong></a>
+</p>
+
+Echo lets someone write to a future version of themselves, add voice or video, capture the context around the moment, and seal the Echo until a chosen date. Until that date arrives, Echo hides the title, letter, media, mood, place, weather, and other emotional details from the everyday interface.
 
 ## Screenshots
 
-The CAC cover image is available at `docs/assets/echo-cover-600x800.jpg`. It is a `600x800` JPEG, matching the portal's preferred 3:4 cover-photo size.
-
-The upload-ready submission set is in `docs/assets/submission/`. It includes ten `600x800` JPEGs covering the home screen, writing room, prompt flow, present/future fields, archive privacy, returned Echo detail, media evidence tray, trust layer, and technical proof. A short silent product walkthrough is also available at `docs/assets/submission/echo-demo-walkthrough.webm`.
-
-<p>
-  <img src="docs/assets/echo-cover-600x800.jpg" alt="Echo home screen cover image" width="220">
-  <img src="docs/assets/echo-write.jpg" alt="Echo writing room with voice, video, dictation, media, and moment controls" width="220">
-  <img src="docs/assets/echo-archive.jpg" alt="Echo archive screen with returned demo artifact and sealed-content privacy" width="220">
+<p align="center">
+  <img src="docs/assets/submission/01-home-returned-and-sealed.jpg" alt="Echo home screen showing a returned Echo and sealed collection" width="220">
+  <img src="docs/assets/submission/02-write-room-media-first.jpg" alt="Echo writing room with voice, video, dictation, media, and moment controls" width="220">
+  <img src="docs/assets/submission/06-archive-privacy.jpg" alt="Echo archive privacy screen showing returned and hidden collections" width="220">
 </p>
+
+<p align="center">
+  <img src="docs/assets/submission/04-active-writing-cue.jpg" alt="Echo writing prompt cue above the letter field" width="220">
+  <img src="docs/assets/submission/08-media-evidence-tray.jpg" alt="Echo returned media evidence tray" width="220">
+  <img src="docs/assets/submission/10-settings-technical-proof.jpg" alt="Echo settings technical proof and privacy copy" width="220">
+</p>
+
+The CAC cover image is available at `docs/assets/echo-cover-600x800.jpg`. The full upload-ready media set is in `docs/assets/submission/`: ten `600x800` JPEGs plus `echo-demo-walkthrough.webm`.
 
 ## Why This Exists
 
