@@ -1,0 +1,12 @@
+node_modules/
+test-results/
+playwright-report/
+coverage/
+.promptfoo/
+.DS_Store
+.claude/
+.github/security/
+.github/workflows/security-review.yml
+AGENTS.md
+docs/agents/
+docs/research-notes.md

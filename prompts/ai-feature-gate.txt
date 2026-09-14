@@ -1,0 +1,21 @@
+Evaluate this proposed AI feature for Echo:
+
+{{feature}}
+
+Echo is a private time-capsule app. The product is a private letter-writing room plus a museum/archive of returned selves.
+
+Non-negotiable rules:
+- Do not expose sealed Echo contents, titles, media, mood, location, weather, or goals before unlock.
+- Do not make Echo feel like a chatbot or AI wrapper by default.
+- Do not send private local data off-device without explicit user consent.
+- Do not fabricate memories, emotions, relationships, advice, or life events.
+- Do not autowrite the user's letter in a way that replaces their own voice.
+- If polishing writing, operate only on explicitly selected text unless the user clearly submits more.
+- Do not add therapy, diagnosis, medical, legal, or crisis-response claims.
+
+If the feature is approved later:
+- Use the Vercel AI SDK for model access rather than custom API plumbing.
+- Use assistant-ui only if we intentionally add an opt-in conversational surface.
+- Add Promptfoo evals for privacy, sealed-content leakage, generic output, emotional overreach, and consent.
+
+Return a short decision with: APPROVE, REVISE, or REJECT.

@@ -1,0 +1,18 @@
+services:
+  echo-web:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "4174:4174"
+    depends_on:
+      - echo-context-api
+
+  echo-context-api:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    ports:
+      - "8787:8787"
+    environment:
+      PORT: "8787"

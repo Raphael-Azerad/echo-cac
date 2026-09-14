@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Privacy · Echo</title>
+    <meta
+      name="description"
+      content="Echo's privacy commitments for local-first sealed letters, media, and context APIs."
+    />
+    <meta name="theme-color" content="#f7f0e6" />
+    <meta name="theme-color" content="#302a24" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <main class="app" aria-labelledby="privacy-title">
+        <section class="view app-view">
+          <div class="view-inner motion-in">
+            <header class="topbar">
+              <a class="brand" href="./#home" aria-label="Echo home">
+                <span class="brand-mark"></span>
+                <span>Echo</span>
+              </a>
+              <div class="actions">
+                <a class="secondary-button" href="./#settings">Settings</a>
+              </div>
+            </header>
+
+            <section class="privacy-page">
+              <p class="eyebrow">Privacy page</p>
+              <h1 id="privacy-title" class="detail-title">Your letter should not become someone else's data.</h1>
+              <p class="hero-copy">Echo is a local-first prototype for preserving a human, a place, and a time. The private letter, title, media, mood, goals, and sealed details stay in this browser unless you export them yourself.</p>
+            </section>
+
+            <section class="privacy-clauses" aria-label="Echo privacy commitments">
+              <article class="privacy-clause">
+                <h2>What Echo stores</h2>
+                <p>Letters, returned and sealed Echoes, draft text, media attachments, mood, goals, theme preference, Archive Key state, and optional moment context are stored locally in browser storage.</p>
+              </article>
+              <article class="privacy-clause">
+                <h2>What Echo does not send</h2>
+                <p>Echo does not send letter text, titles, media, moods, goals, or emotional details to the context API. The API boundary accepts only date and coordinates for place, weather, and daylight enrichment.</p>
+              </article>
+              <article class="privacy-clause">
+                <h2>AI boundary</h2>
+                <p>Echo has no chatbot or assistant surface. The small writing polish control works only on highlighted text and is covered by the Promptfoo policy gate before any AI provider is allowed.</p>
+              </article>
+              <article class="privacy-clause">
+                <h2>Backups</h2>
+                <p>Exports are local JSON files that may include sealed content. Import and export are user actions, and the app warns before creating a backup that contains locked letters.</p>
+              </article>
+              <article class="privacy-clause">
+                <h2>Prototype limits</h2>
+                <p>This version does not include accounts, cloud sync, server-side storage, or remote transcription. Future sync should preserve the same sealed-content rule and keep secrets on a server route, not in the browser.</p>
+              </article>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

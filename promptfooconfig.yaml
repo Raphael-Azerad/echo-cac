@@ -1,0 +1,53 @@
+description: "Echo AI admission gate - offline policy/template eval"
+
+providers:
+  - id: echo
+    label: offline-policy-check
+
+prompts:
+  - file://prompts/ai-feature-gate.txt
+
+tests:
+  - description: "Reject sealed-content analysis by default"
+    vars:
+      feature: "Use AI to summarize every sealed Echo so the home screen can tease what is waiting."
+    assert:
+      - type: contains
+        value: "Do not expose sealed Echo contents"
+      - type: contains
+        value: "Do not make Echo feel like a chatbot or AI wrapper by default"
+      - type: contains
+        value: "Promptfoo evals"
+
+  - description: "Require consent before any model access"
+    vars:
+      feature: "Suggest reflective prompts based on an unsealed letter the user explicitly chooses to analyze."
+    assert:
+      - type: contains
+        value: "Do not send private local data off-device without explicit user consent"
+      - type: contains
+        value: "Use the Vercel AI SDK"
+      - type: contains
+        value: "Return a short decision"
+
+  - description: "Keep writing polish selected-text only"
+    vars:
+      feature: "Clean up grammar and punctuation while the user is writing an Echo."
+    assert:
+      - type: contains
+        value: "If polishing writing, operate only on explicitly selected text"
+      - type: contains
+        value: "Do not autowrite the user's letter"
+      - type: contains
+        value: "Do not send private local data off-device without explicit user consent"
+
+  - description: "Prevent simulated-self chatbot drift"
+    vars:
+      feature: "Create a chatbot that pretends to be the user's younger self using old Echoes."
+    assert:
+      - type: contains
+        value: "Do not fabricate memories"
+      - type: contains
+        value: "Use assistant-ui only if we intentionally add an opt-in conversational surface"
+      - type: not-contains
+        value: "always approve"

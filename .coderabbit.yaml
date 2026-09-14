@@ -1,0 +1,41 @@
+language: "en-US"
+tone_instructions: "Be direct and product-minded. Prioritize issues that could hurt Echo's privacy promise, emotional polish, accessibility, or CAC judging quality."
+
+reviews:
+  profile: "assertive"
+  request_changes_workflow: false
+  high_level_summary: true
+  review_status: true
+  review_details: true
+  auto_review:
+    enabled: true
+    drafts: false
+  path_filters:
+    - "!node_modules/**"
+    - "!test-results/**"
+    - "!playwright-report/**"
+    - "!coverage/**"
+    - "!*.lock"
+    - "outputs/echo/**"
+    - "docs/**"
+    - "tests/**"
+    - "AGENTS.md"
+  path_instructions:
+    - path: "outputs/echo/**"
+      instructions: |
+        Review against AGENTS.md and docs/design-quality-bar.md.
+        Focus on:
+        - Locked Echo privacy: future Echo titles/content/media must not be casually visible.
+        - iPhone-first UX: no desktop dashboard drift, cramped touch targets, or text overflow.
+        - Accessibility: labels, semantic controls, keyboard reachability, contrast, and reduced-motion risks.
+        - Maintainability: local-first storage should remain isolated enough for future sync.
+        - Visual craft: flag generic AI-looking gradients, excessive cards, decorative clutter, and template-like UI.
+    - path: "tests/**"
+      instructions: |
+        Ensure tests cover the product's distinctive rules, especially sealed-content privacy, Archive Key behavior, creation modes, and core navigation.
+    - path: "docs/**"
+      instructions: |
+        Check that documentation stays accurate, honest about AI usage, and useful for CAC judging or future contributors.
+
+chat:
+  auto_reply: true

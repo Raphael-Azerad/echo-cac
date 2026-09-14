@@ -1,0 +1,43 @@
+{
+  "name": "Echo",
+  "short_name": "Echo",
+  "description": "A private time capsule for preserving a human, a place, and a time.",
+  "id": "./#home",
+  "start_url": "./#home",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f7f0e6",
+  "theme_color": "#93673f",
+  "categories": ["lifestyle", "utilities"],
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-maskable.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Write an Echo",
+      "short_name": "Write",
+      "description": "Open the private writing room.",
+      "url": "./#create",
+      "icons": [{ "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+    },
+    {
+      "name": "Open Archive",
+      "short_name": "Archive",
+      "description": "View returned Echoes.",
+      "url": "./#archive",
+      "icons": [{ "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+    }
+  ]
+}
