@@ -1312,21 +1312,48 @@ test("core screens have no obvious accessibility violations in light and dark th
 
 test("main screens do not create horizontal overflow on small phones", async ({ page }) => {
   await resetEcho(page);
+  await seedReturnedEcho(page, { id: "overflow-returned", title: "Demo: Before the first prototype", demo: true });
+  await seedReturnedEcho(page, {
+    id: "overflow-sealed",
+    title: "A sealed title that must stay hidden",
+    unlockAt: "2027-09-14T09:00:00.000Z",
+    demo: true,
+    demoRole: "future",
+  });
 
-  for (const hash of ["#home", "#create", "#archive", "#settings", "#trust", "#privacy", "#demo", "#unknown-room"]) {
-    await page.goto(`/${hash}`);
-    await page.locator(".app-view").first().waitFor();
-    const overflowing = await page.evaluate(() =>
-      [...document.querySelectorAll("*")]
-        .filter((element) => !element.matches(".sr-only, .route-anchor"))
-        .filter((element) => element.scrollWidth > element.clientWidth + 1)
-        .map((element) => ({
-          tag: element.tagName,
-          className: element.className,
-          text: element.textContent?.trim().slice(0, 80),
-        })),
-    );
+  for (const viewport of [
+    { width: 300, height: 650 },
+    { width: 320, height: 700 },
+    { width: 390, height: 844 },
+  ]) {
+    await page.setViewportSize(viewport);
+    for (const hash of ["#home", "#create", "#archive", "#settings", "#trust", "#privacy", "#demo", "#unknown-room"]) {
+      await page.goto(`/${hash}`);
+      await page.locator(".app-view").first().waitFor();
+      const overflowing = await page.evaluate(() => {
+        const viewportWidth = document.documentElement.clientWidth;
+        return [...document.querySelectorAll("*")]
+          .filter((element) => !element.matches(".sr-only, .route-anchor"))
+          .filter((element) => {
+            const style = getComputedStyle(element);
+            if (style.display === "none" || style.visibility === "hidden" || style.position === "fixed") return false;
+            const rect = element.getBoundingClientRect();
+            if (rect.width < 16 || rect.height < 8) return false;
+            const elementOverflow = element.scrollWidth > element.clientWidth + 3;
+            const viewportOverflow = rect.right > viewportWidth + 1 || rect.left < -1;
+            return elementOverflow || viewportOverflow;
+          })
+          .map((element) => ({
+            tag: element.tagName,
+            className: element.className,
+            text: element.textContent?.trim().replace(/\s+/g, " ").slice(0, 80),
+            clientWidth: element.clientWidth,
+            scrollWidth: element.scrollWidth,
+            rect: Math.round(element.getBoundingClientRect().right),
+          }));
+      });
 
-    expect(overflowing, `${hash} overflowing elements`).toEqual([]);
+      expect(overflowing, `${viewport.width}px ${hash} overflowing elements`).toEqual([]);
+    }
   }
 });

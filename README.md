@@ -6,6 +6,16 @@ The app lets someone write a letter to a future version of themselves, add voice
 
 Echo is built for the Congressional App Challenge as a local-first prototype. It is not a journal clone, a notes app, or an AI chatbot. The product goal is simple: make it possible to return to a real moment from your life with enough context that it still feels human.
 
+## Screenshots
+
+The CAC cover image is available at `docs/assets/echo-cover-600x800.jpg`. It is a `600x800` JPEG, matching the portal's preferred 3:4 cover-photo size.
+
+<p>
+  <img src="docs/assets/echo-cover-600x800.jpg" alt="Echo home screen cover image" width="220">
+  <img src="docs/assets/echo-write.jpg" alt="Echo writing room with voice, video, dictation, media, and moment controls" width="220">
+  <img src="docs/assets/echo-archive.jpg" alt="Echo archive screen with returned demo artifact and sealed-content privacy" width="220">
+</p>
+
 ## Why This Exists
 
 Most apps preserve files. Echo preserves the situation around a person before that moment disappears.

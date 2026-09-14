@@ -230,6 +230,7 @@ button {
   display: flex;
   align-items: center;
   gap: 10px;
+  min-width: 0;
 }
 
 .icon-button,
@@ -676,6 +677,7 @@ p {
 
 .compact-state h2 {
   font-size: 30px;
+  overflow-wrap: anywhere;
 }
 
 .sealed-summary,
@@ -944,6 +946,7 @@ p {
   display: grid;
   gap: 14px;
   padding: 18px;
+  min-width: 0;
   border: 1px solid var(--line);
   border-radius: 18px;
   background: color-mix(in srgb, var(--surface) 88%, transparent);
@@ -952,9 +955,11 @@ p {
 
 .settings-heading {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 6px 12px;
+  min-width: 0;
 }
 
 .preference-row {
@@ -974,12 +979,14 @@ p {
   font-family: var(--font);
   font-size: 26px;
   font-weight: 500;
+  overflow-wrap: anywhere;
 }
 
 .settings-heading span,
 .preference-row small {
   color: var(--ink-muted);
   font-size: 12px;
+  overflow-wrap: anywhere;
 }
 
 .preference-row strong,
@@ -3190,6 +3197,15 @@ textarea::placeholder {
   .demo-status {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .sealed-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .sealed-summary .secondary-button {
+    width: 100%;
+    white-space: normal;
+  }
 }
 
 @media (max-width: 520px) {
@@ -3207,6 +3223,7 @@ textarea::placeholder {
   .secondary-button,
   .danger-button {
     width: 100%;
+    white-space: normal;
   }
 
   .onboarding-footer .actions,
@@ -3289,7 +3306,7 @@ textarea::placeholder {
     calc(108px + env(safe-area-inset-bottom));
 }
 
-@media (max-width: 520px) {
+@media (min-width: 341px) and (max-width: 520px) {
   .app-view .topbar {
     align-items: center;
     flex-direction: row;
@@ -3302,5 +3319,18 @@ textarea::placeholder {
   .app-view .topbar .secondary-button,
   .app-view .topbar .danger-button {
     width: auto;
+  }
+}
+
+@media (max-width: 340px) {
+  .app-view .topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .app-view .topbar .actions,
+  .app-view .topbar .secondary-button,
+  .app-view .topbar .danger-button {
+    width: 100%;
   }
 }
