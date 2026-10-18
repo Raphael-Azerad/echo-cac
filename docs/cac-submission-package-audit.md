@@ -1,6 +1,7 @@
 # Echo CAC Submission Package Audit
 
-Audit date: 2026-09-14
+- Original audit: 2026-09-14
+- Project-state refresh: 2026-10-18
 
 Scope reviewed:
 
@@ -11,11 +12,13 @@ Scope reviewed:
 - `README.md`
 - `docs/assets/submission/`
 
-External spot-checks used:
+External spot-checks used and refreshed on October 18:
 
 - CAC 2026 student rules and rulebook: any programming language/platform is allowed, submissions are due October 26, 2026, the demo video should be 1-3 minutes, and the video must be uploaded to YouTube or Vimeo and set to public.
 - CAC judging criteria: quality of idea, implementation/user experience/design, and demonstrated coding/programming skill.
 - Hack Club Congressional App Challenge Finalist Award pages: certification expects an eligible CAC submission, a public GitHub repository with a README, and a playable project link in the CAC submission.
+
+The official CAC pages currently agree on the October 26 date but show conflicting deadline times. The [2026 rulebook](https://www.congressionalappchallenge.us/wp-content/uploads/2026/05/2026-CAC-Rules.pdf) says noon Eastern while the [student registration page](https://www.congressionalappchallenge.us/students/student-registration/) says 9:00 p.m. Eastern. Treat the deadline displayed inside the submission portal as authoritative and submit well before either time.
 
 No main submission draft files were edited.
 
@@ -23,7 +26,20 @@ No main submission draft files were edited.
 
 The written package is strong and mostly judge-ready. The answers are specific to Echo, aligned with the product's privacy-by-default identity, and substantially under the apparent 400-word ceiling. The biggest remaining risks are not copy quality; they are portal mechanics and personal facts that only the submitter can finalize.
 
-Current readiness: nearly ready for paste/upload once the public video link, completion date, source/app access decision, and personal attribution fields are resolved.
+Current readiness: the code repository is submission-ready. The remaining blockers are the final public narrated video, completion date, source/app access decision, and personal attribution fields.
+
+## Repository And Quality State
+
+Verified October 18, 2026:
+
+- The current submission branch is `main`.
+- All visible Git commits are authored and committed as Raphael Azerad, with no co-author or assistant attribution.
+- `npm run quality` covers 88 Playwright browser-test executions, 2 Node API tests, and 4 offline Promptfoo policy checks.
+- The README, Docker setup, PWA assets, screenshots, silent walkthrough, thumbnails, API documentation, and AI disclosure are present.
+- The repository should remain private until Raphael deliberately changes the visibility for a public demo, certification, or judging access.
+- The comprehensive internal handoff used for response writing is intentionally excluded from Git so a future public repository stays focused on the product.
+
+The six response drafts in `docs/cac-optimized-400-word-responses.md` are the latest response set stored in this repository. They were last reviewed September 14. If Raphael finalized newer personal essays in another conversation, those files are not present here and should be supplied before replacing the stored drafts.
 
 ## Word Count Check
 
@@ -135,11 +151,11 @@ The disclosure correctly says AI assisted development and that Echo itself is no
 
 Concrete next step: include one sentence naming what the student can explain live: IndexedDB storage, sealed-content filtering, MediaRecorder capture, the `/api/context/moment` request shape, and the test suite.
 
-5. Replace or verify "clean commit history"
+5. Keep repository claims concrete
 
-The Congressional Certification paragraph says Echo has "a clean commit history." I did not verify that claim, and the current working tree is not clean (`package.json`, `docs/assets/video/`, `docs/video-packaging-options.md`, and `scripts/generate-video-thumbnails.mjs` are modified or untracked). A dirty working tree does not mean the commit history is bad, but the sentence is risky as written.
+The current visible history has ten focused commits, all authored and committed as Raphael Azerad. The repository also has a README, tests, Docker files, and screenshots. Those facts are verified. "Clean commit history" is subjective, so the more concrete wording is still better for submission materials.
 
-Concrete next step: either verify the public repo history before using that claim, or reword to "a README, tests, Docker files, and screenshots."
+Concrete next step: say "a documented repository with automated tests, Docker files, and submission media" instead of relying on the phrase "clean commit history."
 
 6. Be careful with "Promptfoo policy gate"
 
@@ -186,7 +202,7 @@ The user still needs to provide or decide:
 
 ## Recommended Next Steps
 
-1. Record a narrated 1-3 minute demo that explicitly includes participant name(s), Echo's name, purpose, target audience, tools/languages, and functionality.
+1. Record the updated 1-3 minute script in `docs/demo-script.md`, which now explicitly includes participant name, Echo's name, purpose, target audience, tools/languages, functionality, technical difficulty, and AI disclosure.
 2. Upload the video to YouTube or Vimeo as public and paste the `https` URL into the portal draft.
 3. Decide whether the optional project link stays blank, points to a deployed app, or points to a public GitHub repo.
 4. Choose the final code-freeze date.

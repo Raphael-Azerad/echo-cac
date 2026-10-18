@@ -52,6 +52,19 @@ Echo lets someone write to a future version of themselves, add voice or video, c
 
 The CAC cover image is available at `docs/assets/echo-cover-600x800.jpg`. The full upload-ready media set is in `docs/assets/submission/`: ten `600x800` JPEGs plus `echo-demo-walkthrough.webm`.
 
+## Submission Build
+
+The current `main` branch is the working Congressional App Challenge submission build. It is a functional local-first prototype, not a screen-only concept: users can create and seal Echoes, record local media, preserve moment context, export or restore an archive, and open returned Echoes through the real reveal flow.
+
+Verified October 18, 2026:
+
+- 88 Playwright browser-test executions pass across mobile and desktop projects.
+- 2 context API tests pass.
+- 4 offline Promptfoo policy checks pass.
+- The repository contains the Docker setup, PWA shell, submission screenshots, silent walkthrough, and GitHub Actions quality workflow.
+
+The app is intentionally accountless for this version. It has no cloud database, runtime AI model, public social feed, or production deployment. Those are product boundaries, not hidden claims.
+
 ## Why This Exists
 
 Most apps preserve files. Echo preserves the situation around a person before that moment disappears.
@@ -183,6 +196,16 @@ For a short judge demo:
 6. Open a returned Echo and show the archive reveal.
 
 The strongest way to explain Echo is: it captures a human, a place, and a time before the present becomes unreachable.
+
+## Project Documentation
+
+- [`CONTEXT.md`](CONTEXT.md): domain language and product rules.
+- [`docs/adr/0001-local-first-before-cloud-sync.md`](docs/adr/0001-local-first-before-cloud-sync.md): why the submission build does not use Supabase or Convex.
+- [`docs/context-api.md`](docs/context-api.md): moment-context API contract and privacy boundary.
+- [`docs/ai-usage-disclosure.md`](docs/ai-usage-disclosure.md): development-tool disclosure and current in-app AI boundary.
+- [`docs/design-quality-bar.md`](docs/design-quality-bar.md): visual, interaction, and accessibility standards.
+- [`docs/demo-script.md`](docs/demo-script.md): final recording structure for the CAC demonstration video.
+- [`docs/assets/submission/README.md`](docs/assets/submission/README.md): upload-ready screenshots and walkthrough assets.
 
 ## Future Work
 
