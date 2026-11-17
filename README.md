@@ -22,6 +22,12 @@
   </p>
 </div>
 
+## Try Echo
+
+[Open the live app](https://raphael-azerad.github.io/echo-cac/).
+
+The public version runs locally in your browser. Letters and media are stored on your device; export backups before clearing browser data. Storage and backups are not encrypted. The optional place/weather API is not hosted on GitHub Pages: enter those details manually, or run the API locally using the instructions below. Browser dictation may use the browser provider's speech service.
+
 ## Walkthrough
 
 <p align="center">
@@ -63,7 +69,7 @@ Verified October 18, 2026:
 - 4 offline Promptfoo policy checks pass.
 - The repository contains the Docker setup, PWA shell, submission screenshots, silent walkthrough, and GitHub Actions quality workflow.
 
-The app is intentionally accountless for this version. It has no cloud database, runtime AI model, public social feed, or production deployment. Those are product boundaries, not hidden claims.
+The app is intentionally accountless for this version. It has no cloud database, runtime AI model or public social feed. Those are product boundaries, not hidden claims.
 
 ## Why This Exists
 
@@ -209,4 +215,8 @@ The strongest way to explain Echo is: it captures a human, a place, and a time b
 
 ## Future Work
 
-Echo should stay local-first until cloud sync is worth the privacy cost. Future work could add encrypted sync, native mobile packaging, stronger reminder scheduling, and a production deployment. Those features should sit behind the existing storage and privacy boundaries instead of replacing them.
+Echo should stay local-first until cloud sync is worth the privacy cost. Future work could add encrypted sync, native mobile packaging, stronger reminder scheduling, and hosted context enrichment. Those features should sit behind the existing storage and privacy boundaries instead of replacing them.
+
+## License
+
+MIT License. See [LICENSE](LICENSE).
